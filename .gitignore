@@ -1,0 +1,63 @@
+# ── dependencies ────────────────────────────────────────────────────────────
+/node_modules
+backend/node_modules/
+/.pnp
+.pnp.*
+
+# ── build / cache ───────────────────────────────────────────────────────────
+/.next/
+/out/
+/build
+/dist
+/coverage
+*.tsbuildinfo
+next-env.d.ts
+src-tauri/target/
+src-tauri/gen/
+src-tauri/out/
+
+# ── python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# ── SECRETS — never commit ──────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+backend/.env
+backend/secrets/
+backend/sessions/
+*.key
+*.pem
+*.p12
+id_rsa*
+**/telegram.json
+**/*oauth*.json
+.xjarvis-oat
+
+# ── runtime data / PII ──────────────────────────────────────────────────────
+logs/
+*.log
+*.db
+*.jsonl
+*.sqlite
+*.sqlite-*
+whatsapp-session/
+
+# ── user-specific assets ────────────────────────────────────────────────────
+voice/keywords/*.ppn
+
+# ── misc ────────────────────────────────────────────────────────────────────
+.DS_Store
+.vercel
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.mp4
+*.mov
+*.gguf

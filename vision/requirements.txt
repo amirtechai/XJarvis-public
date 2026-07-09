@@ -1,0 +1,8 @@
+opencv-python>=4.8
+numpy>=1.26
+openai>=1.40
+websockets>=12
+aiohttp>=3.9
+loguru>=0.7
+python-dotenv>=1.0
+pillow>=10.0

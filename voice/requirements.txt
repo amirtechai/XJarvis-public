@@ -1,0 +1,24 @@
+# Required base
+numpy>=1.26
+sounddevice>=0.4
+aiohttp>=3.9
+websockets>=12
+loguru>=0.7
+python-dotenv>=1.0
+
+# Wake word — open-source openWakeWord (replaces Picovoice Porcupine)
+# Pre-trained "hey_jarvis" model included; no API key, MIT license.
+openwakeword>=0.6.0
+onnxruntime>=1.17.0
+
+# Optional TTS upgrade (else macOS `say` is used)
+openai>=1.40
+
+# Streaming STT — Deepgram Nova-3
+# (uses websockets directly; no SDK dep required)
+
+# Optional: webrtcvad for upgraded VAD (else energy-only fallback)
+# pip install webrtcvad-wheels  (or webrtcvad on Linux)
+webrtcvad-wheels>=2.0; platform_system == "Darwin"
+webrtcvad>=2.0; platform_system != "Darwin"
+

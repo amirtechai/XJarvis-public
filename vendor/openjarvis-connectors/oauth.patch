@@ -1,0 +1,26 @@
+--- a/src/openjarvis/connectors/oauth.py
++++ b/src/openjarvis/connectors/oauth.py
+@@ -62,6 +62,7 @@ GOOGLE_ALL_SCOPES: List[str] = [
+     "https://www.googleapis.com/auth/contacts.readonly",
+     "https://www.googleapis.com/auth/gmail.readonly",
+     "https://www.googleapis.com/auth/tasks.readonly",
++    "https://www.googleapis.com/auth/youtube.readonly",
+ ]
+
+ OAUTH_PROVIDERS: Dict[str, OAuthProvider] = {
+@@ -80,6 +81,7 @@ OAUTH_PROVIDERS: Dict[str, OAuthProvider] = {
+             "gcontacts",
+             "gmail",
+             "google_tasks",
++            "youtube",
+         ),
+         credential_files=(
+             "google.json",
+@@ -88,6 +90,7 @@ OAUTH_PROVIDERS: Dict[str, OAuthProvider] = {
+             "gcontacts.json",
+             "gmail.json",
+             "google_tasks.json",
++            "youtube.json",
+         ),
+     ),
+     "strava": OAuthProvider(

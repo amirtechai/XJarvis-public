@@ -1,0 +1,21 @@
+{
+  "name": "jarvis-backend",
+  "version": "1.0.0",
+  "description": "Jarvis UI Backend - WebSocket Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^7.0.0-rc10",
+    "better-sqlite3": "^12.9.0",
+    "pino": "^10.3.1",
+    "qrcode": "^1.5.4",
+    "systeminformation": "^5.31.5",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

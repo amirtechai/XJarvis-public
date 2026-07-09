@@ -1,0 +1,239 @@
+@import "tailwindcss";
+
+:root {
+  /* NEW June 2026 design-token layer */
+  --color-navy: #0a0e27;
+  --color-cyan: #00d9ff;
+  --color-pink: #ff006e;
+  --color-white: #f0f0f0;
+  --color-muted: #9fb3c8;
+
+  /* Glass morphic tokens */
+  --glass-bg: rgba(20, 25, 50, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(15px);
+  --glass-glow: rgba(0, 217, 255, 0.25);
+
+  /* Legacy aliases for backward compatibility */
+  --bg-base: #0a0a0a;
+  --bg-surface: #111111;
+  --bg-elevated: #1a1a1a;
+  --bg-bubble-user: #0a84ff;
+  --border: rgba(255,255,255,0.08);
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --text-muted: #48484a;
+  --accent: #0a84ff;
+  --accent-glow: rgba(10,132,255,0.15);
+  --success: #30d158;
+  --warning: #ff9f0a;
+  --danger: #ff453a;
+
+  /* HUD palette — settings'ten kullanıcı değiştirebilir */
+  --hud-space: #050810;
+  --hud-rgb: 0, 229, 255;
+  --hud-cyan: rgb(var(--hud-rgb));
+  --hud-cyan-dim: rgba(var(--hud-rgb), 0.15);
+  --hud-cyan-glow: rgba(var(--hud-rgb), 0.35);
+  --hud-amber: #ffb347;
+  --hud-emerald: #00ff88;
+  --hud-red: #ff4d6d;
+  --font-hud: var(--font-orbitron), "Orbitron", "SF Mono", monospace;
+  --font-stack: var(--font-orbitron), "Orbitron", monospace;
+}
+
+.hud-font { font-family: var(--font-hud); letter-spacing: 0.04em; }
+.hud-glass {
+  background: linear-gradient(135deg, rgba(var(--hud-rgb),0.06), rgba(var(--hud-rgb),0.02));
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 0 24px rgba(var(--hud-rgb),0.08), inset 0 0 12px rgba(var(--hud-rgb),0.04);
+}
+
+/* New glass utility with refined spec */
+.hud-glass-new {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: 0 0 20px var(--glass-glow), inset 0 0 16px rgba(0, 217, 255, 0.08);
+}
+
+.hud-glow {
+  text-shadow: 0 0 12px var(--glass-glow);
+  box-shadow: 0 0 20px var(--glass-glow);
+}
+
+.hud-title {
+  font-family: var(--font-hud);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  color: var(--color-white);
+}
+
+.hud-label {
+  font-family: var(--font-stack);
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+@keyframes hud-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+.hud-pulse { animation: hud-pulse 2.4s ease-in-out infinite; }
+
+@keyframes hud-spin-slow { to { transform: rotate(360deg); } }
+@keyframes hud-spin-rev { to { transform: rotate(-360deg); } }
+
+/* Entrance animations */
+@keyframes hud-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hud-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hud-fade-in {
+  animation: hud-fade-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.hud-scale-in {
+  animation: hud-scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .hud-pulse,
+  .hud-spin-slow,
+  .hud-spin-rev,
+  .hud-fade-in,
+  .hud-scale-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  background: transparent;
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  margin: 0;
+}
+
+/* Global iridescence wallpaper — tüm sayfaların arkasında sabit durur.
+   Sayfa panelleri yarı saydam (rgba) olduğundan renk arkadan sızar. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('/wallpaper.jpg') center / cover no-repeat;
+  z-index: -2;
+  pointer-events: none;
+}
+/* Video arka plan şovu — wallpaper.jpg fallback'inin üstünde, overlay'in altında. */
+.jarvis-video-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.jarvis-video-bg__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+  will-change: opacity, transform;
+  /* Giriş/çıkış hareketi: yavaş ken-burns zoom + hafif pan. */
+  animation: jarvis-bg-kenburns 26s ease-in-out infinite alternate;
+  transform: scale(1.06);
+}
+.jarvis-video-bg__layer.is-front {
+  opacity: 1;
+}
+.jarvis-video-bg__layer.no-motion {
+  animation: none;
+  transform: none;
+}
+@keyframes jarvis-bg-kenburns {
+  0%   { transform: scale(1.04) translate3d(0, 0, 0); }
+  100% { transform: scale(1.14) translate3d(-1.5%, -1.5%, 0); }
+}
+
+/* Okunabilirlik için koyu overlay — wallpaper'ı bastırır, renk hissi kalır. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(2,6,13,0.45) 0%, rgba(2,6,13,0.72) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 2px; }
+
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.streaming-cursor::after {
+  content: '▋';
+  animation: blink 1s step-start infinite;
+  color: var(--accent);
+  margin-left: 1px;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fade-in 320ms ease-out both; }
+
+/* Hide native input spinner buttons (number inputs look cleaner) */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+input[type=number] { -moz-appearance: textfield; }
+
+/* Better focus ring for keyboard nav */
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid rgba(var(--hud-rgb),0.45);
+  outline-offset: 2px;
+}
+
+/* CLASSIC dashboard kendi header'ını taşır — global NavBar'ı gizle. */
+body[data-classic] .app-nav { display: none !important; }
